@@ -1,0 +1,16 @@
+name: second
+on: pull_request
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - id: log
+        run: echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
+      - if: "!contains(steps.log.outputs.message, 'ci skip')"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - if: "!contains(steps.log.outputs.message, 'ci skip')"
+        run: npm install
