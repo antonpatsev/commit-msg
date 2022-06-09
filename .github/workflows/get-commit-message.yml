@@ -17,5 +17,3 @@ jobs:
 
       - name: Get Commit Message
         run: echo ${{ github.event.head_commit.message }}
-
-
