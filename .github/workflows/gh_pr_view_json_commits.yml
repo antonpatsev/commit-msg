@@ -1,0 +1,30 @@
+---
+name: gh_pr_view_json_commits
+
+on:
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  gh_pr_view_json_commits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Check message commits
+        run: |
+          LIST_MESSAGE_COMMITS=$(gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq -r '.commits[] | .messageHeadline')
+          for MESSAGE_COMMITS in "${LIST_MESSAGE_COMMITS}"
+          do
+            echo "${MESSAGE_COMMITS}"
+            if [[ "${MESSAGE_COMMITS}" =~ ^(feat|fix)\((alerts|cicd|dns|git|github|gke|gsuite|iam|inventory|tf)\):\s.*(DEVOPS-[0-9]+) ]]; then
+              echo "Valid message commit:"
+              echo "${MESSAGE_COMMITS}"
+            else
+              echo "Invalid message commit:"
+              echo "${MESSAGE_COMMITS}"
+              exit 1
+            fi
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
