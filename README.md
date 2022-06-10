@@ -1,1 +1,1 @@
-feat(alerts): jhjjh (DEVOPS-1945)
+feat(cicd): ffffg (DEVOPS-2242)
