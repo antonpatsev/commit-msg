@@ -4,6 +4,10 @@ jobs:
   pull_request_commits_url:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ github.event.pull_request.commits_url }}

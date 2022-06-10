@@ -10,7 +10,7 @@ jobs:
       # of a pull request
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 10
+          fetch-depth: 0
 
       # In case of a push event, the commit we care about is simply HEAD.
       # The current branch name can be found by parsing GITHUB_REF, for example,
