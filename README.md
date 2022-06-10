@@ -1,1 +1,1 @@
-fix(hgh): hhhh - hhh (DEVOPS-2594)
+fix(hghh): hhhh - hhh (DEVOPS-2594)
