@@ -2,12 +2,12 @@ name: second
 on: pull_request
 
 jobs:
-  build-and-test:
+  second:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Get commit message
         id: get_commit_message
         run: echo ::set-output name=commit_message::$(git log --no-merges -1 --oneline)
-      - name: steps.get_commit_message.outputs.commit_message
+      - name: short_hash and last commit
         run: echo "${{ steps.get_commit_message.outputs.commit_message }}"

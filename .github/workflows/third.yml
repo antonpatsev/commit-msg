@@ -2,7 +2,7 @@ name: third
 on: pull_request
 
 jobs:
-  build:
+  third:
     runs-on: ubuntu-latest
     steps:
 
@@ -23,6 +23,7 @@ jobs:
           echo "$(git log --format=%B -n 1 HEAD)" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           echo $GITHUB_ENV
+          cat $GITHUB_ENV
 
       # In case of a pull_request event, the commit we care about is HEAD^2, that
       # is, the second parent of the pull request merge commit.
@@ -35,3 +36,4 @@ jobs:
           echo "$(git log --format=%B -n 1 HEAD^2)" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           echo $GITHUB_ENV
+          cat $GITHUB_ENV

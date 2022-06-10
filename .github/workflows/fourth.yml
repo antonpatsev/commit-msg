@@ -1,4 +1,4 @@
-name: Sample Workflow - fourth
+name: 4fourth
 
 on:
   pull_request:
@@ -47,5 +47,5 @@ jobs:
 
         # If this job doesn't get skipped you'll see the commit message appear here, it's just a debugging this
         # so be sure to remove it for your actual workflow
-      - name: Log commit message
+      - name: Log commit message - last commit
         run: echo "${{ needs.pre_ci.outputs.commit_message }}"
