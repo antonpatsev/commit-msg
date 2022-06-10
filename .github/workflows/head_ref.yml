@@ -13,8 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - run: |
-          echo gh api -H "Accept: application/vnd.github.v3+json" /repos/OWNER/REPO/pulls/PULL_NUMBER/commits:
-          gh api -H "Accept: application/vnd.github.v3+json" /repos/${{ env.GITHUB_REPOSITORY_OWNER }}/${{ env.GITHUB_REPOSITORY }}/pulls/${{github.event.pull_request.number}}/commits
+          echo env GITHUB_REPOSITORY_OWNER || true
+          echo ${{ env.GITHUB_REPOSITORY_OWNER }} || true
+          echo env GITHUB_REPOSITORY || true
+          echo ${{ env.GITHUB_REPOSITORY }} || true
+          echo env github.event.pull_request.number || true
+          echo ${{ github.event.pull_request.number }} || true
+          echo "gh api -H "Accept: application/vnd.github.v3+json" /repos/OWNER/REPO/pulls/PULL_NUMBER/commits":
+          gh api -H "Accept: application/vnd.github.v3+json" /repos/${{ env.GITHUB_REPOSITORY_OWNER }}/${{ env.GITHUB_REPOSITORY }}/pulls/${{ github.event.pull_request.number }}/commits || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
