@@ -18,19 +18,34 @@ jobs:
           echo ${{ github.event.pull_request.head.ref }}
           echo github.base_ref:
           echo ${{ github.base_ref }}
+          ######################################################################################################
+          echo git log ${{ github.event.pull_request.commits }} --pretty=format:%s:
+          git log ${{ github.event.pull_request.commits }} --pretty=format:%s || true
+          ######################################################################################################
+          echo git log --pretty=format:%s:
+          git log --pretty=format:%s || true
+          ######################################################################################################
           echo git log github.event.pull_request.head.ref github.base_ref:
           git log ${{ github.event.pull_request.head.ref }}..${{ github.base_ref }} || true
+          ######################################################################################################
           echo git log github.base_ref github.event.pull_request.head.ref:
           git log ${{ github.base_ref }} ${{ github.event.pull_request.head.ref }} || true
+          ######################################################################################################
           echo git github.base_ref github.event.pull_request.head.ref:
           git rev-list ${{ github.base_ref }} ${{ github.event.pull_request.head.ref }} || true
+          ######################################################################################################
           echo git rev-list origin..HEAD:
           git rev-list origin..HEAD || true
+          ######################################################################################################
           echo git rev-list HEAD ^origin:
           git rev-list HEAD ^origin || true
+          ######################################################################################################
           echo git log github.event.pull_request.base.sha..github.event.pull_request.head.sha --pretty=format:%s 
           git log ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} --pretty=format:%s || true
+          ######################################################################################################
           echo git rev-parse github.event.pull_request.base.sha^github.event.pull_request.commits
           git rev-parse ${{ github.event.pull_request.base.sha }}^${{ github.event.pull_request.commits }} || true
+          ######################################################################################################
           echo git rev-parse github.event.pull_request.head.sha^github.event.pull_request.commits
           git rev-parse ${{ github.event.pull_request.head.sha }}^${{ github.event.pull_request.commits }} || true
+          ######################################################################################################
