@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REGEX="^(feat|fix)\((alerts|backup|cicd|dns|git|github|gcloud|gke|gsuite|iam|inventory|spanner-autoscaler|terraform|tf)\):\s.*(DEVOPS-[0-9]+)\)"
+REGEX="^(feat|fix)\((alerts|backup|cicd|dns|git|github|gcloud|gke|gsuite|iam|inventory|spanner-autoscaler|terraform|tf)\):\s.*(DEVOPS-[0-9]+)\)$"
 set -o errexit   # exit on error
 set -o nounset   # fail if var undefined
 set -o noclobber # don't overwrite exists files via >
