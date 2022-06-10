@@ -1,1 +1,1 @@
-feat(tf): jjjj (DEVOPS-2563)
+feat(inventory): iiii (DEVOPS-1951)
