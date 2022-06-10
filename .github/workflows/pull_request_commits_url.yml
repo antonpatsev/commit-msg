@@ -10,5 +10,5 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - run: curl -o commits_url.json ${{ github.event.pull_request.commits_url }}
       - run: cat commits_url.json
-      - run: curl -o commit.json ${{ github.event.pull_request.commits }}
-      - run: cat commit.json
+      - name: count commit in PR
+        run: echo ${{ github.event.pull_request.commits }}
