@@ -1,7 +1,6 @@
 name: Sample Workflow - fourth
 
 on:
-  push:
   pull_request:
 
 jobs:
