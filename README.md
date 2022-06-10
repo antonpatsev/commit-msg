@@ -1,1 +1,1 @@
-feat(github): jjj `jjjj` hhh `gggg` (DEVOPS-2554)
+feat(spanner-autoscaler): fff - ffff (DEVOPS-2409)
