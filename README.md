@@ -1,1 +1,1 @@
-feat(github): hhhh (DEVOPS-2637)
+feat(cicd): jjj (DEVOPS-2507)
