@@ -22,8 +22,8 @@ jobs:
           LIST_MESSAGE_COMMITS=$(gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq -r '.commits[] | .messageHeadline')
           for MESSAGE_COMMITS in "${LIST_MESSAGE_COMMITS}"
           do
-            echo "${MESSAGE_COMMITS}"
-            if [[ "${MESSAGE_COMMITS}" =~ "${REGEX}" ]]; then
+            echo ${MESSAGE_COMMITS}
+            if [[ ${MESSAGE_COMMITS} =~ ${REGEX} ]]; then
               echo "Valid message commit:"
               echo "${MESSAGE_COMMITS}"
             else
