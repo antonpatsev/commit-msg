@@ -1,1 +1,1 @@
-feat(cicd): gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg (DEVOPS-2139)
+feat(gsuite): vggggggggggggggggggggggggggggggggggggg (DEVOPS-1865)
