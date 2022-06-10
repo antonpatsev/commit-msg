@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # We need to fetch with a depth of 2 for pull_request so we can do HEAD^2
           fetch-depth: 2
@@ -43,7 +43,7 @@ jobs:
     needs: pre_ci
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
         # If this job doesn't get skipped you'll see the commit message appear here, it's just a debugging this
         # so be sure to remove it for your actual workflow
