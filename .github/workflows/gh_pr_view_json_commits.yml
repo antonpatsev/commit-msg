@@ -14,11 +14,16 @@ jobs:
       - name: Check message commits
         run: |
           REGEX="^(feat|fix)\((alerts|cicd|dns|git|github|gke|gsuite|iam|inventory|tf)\):\s.*(DEVOPS-[0-9]+)"
+          set -o errexit   # exit on error
+          set -o nounset   # fail if var undefined
+          set -o noclobber # don't overwrite exists files via >
+          set -o pipefail  # fails if pipes (|) fails
+          # set -o xtrace  # debug
           LIST_MESSAGE_COMMITS=$(gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq -r '.commits[] | .messageHeadline')
           for MESSAGE_COMMITS in "${LIST_MESSAGE_COMMITS}"
           do
             echo "${MESSAGE_COMMITS}"
-            if ! [[ "${MESSAGE_COMMITS}" =~ $REGEX ]]; then
+            if [[ "${MESSAGE_COMMITS}" =~ $REGEX ]]; then
               echo "Valid message commit:"
               echo "${MESSAGE_COMMITS}"
             else
