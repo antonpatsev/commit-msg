@@ -23,22 +23,6 @@ jobs:
           gh api -H "Accept: application/vnd.github.v3+json" /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/commits | jq || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
-          echo "gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq '.commits[] | .messageHeadline' ":
-#          gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq '.commits[] | .messageHeadline' || true
-          LIST_MESSAGE_COMMITS=$(gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq -r '.commits[] | .messageHeadline')
-          for MESSAGE_COMMITS in "${LIST_MESSAGE_COMMITS}"
-          do
-              echo "${MESSAGE_COMMITS}"
-              if [[ "${MESSAGE_COMMITS}" =~ ^(feat|fix)\((alerts|cicd|dns|git|github|gke|gsuite|iam|inventory|tf)\):\s.*(DEVOPS-[0-9]+) ]]; then
-              echo "Valid message commits"
-              else
-              echo "Invalid message commits"
-              exit 1
-              fi
-          done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: github.event.pull_request.head.ref
         run: |
           echo github.event.pull_request.head.ref:
@@ -51,7 +35,6 @@ jobs:
           echo ######################################################################################################
           echo git log $(git merge-base master branch-name)..branch-name:
           git log $(git merge-base ${{ github.base_ref }} ${{ github.event.pull_request.head.ref }})..${{ github.event.pull_request.head.ref }} || true
-
           echo ######################################################################################################
           echo git log -${{ github.event.pull_request.commits }} --pretty=format:%s:
           git log -${{ github.event.pull_request.commits }} --pretty=format:%s || true
