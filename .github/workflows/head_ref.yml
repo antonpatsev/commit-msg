@@ -24,13 +24,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
-          echo "gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq '.commits'":
-          gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq '.commits' || true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
-          echo "gh pr view ${{ github.event.pull_request.head.ref }} --json":
-          gh pr view ${{ github.event.pull_request.head.ref }} --json || true
+          echo "gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq '.commits[] | .messageHeadline' ":
+          gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq '.commits[] | .messageHeadline' || true
+          LIST_MESSAGE_COMMITS=$(gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq -r '.commits[] | .messageHeadline')
+          for MESSAGE_COMMITS in "${LIST_MESSAGE_COMMITS}"
+          do
+              echo "${MESSAGE_COMMITS}"
+          done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: github.event.pull_request.head.ref
