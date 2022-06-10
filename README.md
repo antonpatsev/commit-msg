@@ -1,1 +1,1 @@
-feat(inventory): iiii (DEVOPS-1951)
+feat(gsuite): jjjj (DEVOPS-2495)
