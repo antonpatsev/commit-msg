@@ -1,9 +1,9 @@
-name: Run commitlint on pull request
+name: git rev-parse HEAD
 
 on: pull_request
 
 jobs:
-  run-commitlint-on-pull-request:
+  git-rev-parse-head:
     runs-on: ubuntu-latest
 
     steps:
