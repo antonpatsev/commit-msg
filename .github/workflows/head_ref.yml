@@ -19,6 +19,12 @@ jobs:
           echo github.base_ref:
           echo ${{ github.base_ref }}
           echo ######################################################################################################
+          echo git log $(git merge-base master branch-name)..branch-name:
+          git log $(git merge-base ${{ github.base_ref }} ${{ github.event.pull_request.head.ref }})..${{ github.event.pull_request.head.ref }} || true
+          echo ######################################################################################################
+          echo gh pr view --json commits:
+          gh pr view --json commits || true
+          echo ######################################################################################################
           echo git log -${{ github.event.pull_request.commits }} --pretty=format:%s:
           git log -${{ github.event.pull_request.commits }} --pretty=format:%s || true
           echo ######################################################################################################
