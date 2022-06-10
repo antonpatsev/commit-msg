@@ -28,3 +28,9 @@ jobs:
           git rev-list origin..HEAD || true
           echo git rev-list HEAD ^origin:
           git rev-list HEAD ^origin || true
+          echo git log github.event.pull_request.base.sha..github.event.pull_request.head.sha --pretty=format:%s 
+          git log ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} --pretty=format:%s || true
+          echo git rev-parse github.event.pull_request.base.sha^github.event.pull_request.commits
+          git rev-parse ${{ github.event.pull_request.base.sha }}^${{ github.event.pull_request.commits }} || true
+          echo git rev-parse github.event.pull_request.head.sha^github.event.pull_request.commits
+          git rev-parse ${{ github.event.pull_request.head.sha }}^${{ github.event.pull_request.commits }} || true
