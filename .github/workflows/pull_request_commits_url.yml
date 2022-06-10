@@ -1,0 +1,14 @@
+name: PR commits
+on: pull_request
+jobs:
+  pull_request_commits_url:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ github.event.pull_request.commits_url }}
+        run: echo "$GITHUB_CONTEXT"
+      - run: curl -o commits_url.json ${{ github.event.pull_request.commits_url }}
+      - run: cat commits_url.json ${{ github.event.pull_request.commits_url }}
+      - run: curl -o commit.json ${{ github.event.pull_request.commit }}
+      - run: cat commit.json ${{ github.event.pull_request.commit }}
