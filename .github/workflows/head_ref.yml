@@ -24,13 +24,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
-          echo gh pr view --json commits ${{ github.event.pull_request.head.ref }}:
-          gh pr view --json commits ${{ github.event.pull_request.head.ref }} || true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
           echo gh pr view ${{ github.event.pull_request.head.ref }} --json commits:
-          gh pr view ${{ github.event.pull_request.head.ref }} --json commits  || true
+          gh pr view ${{ github.event.pull_request.head.ref }} --json commits | jq || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: github.event.pull_request.head.ref
