@@ -6,11 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - id: log
-        run: echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
-      - if: "!contains(steps.log.outputs.message, 'ci skip')"
-        uses: actions/setup-node@v1
-        with:
-          node-version: 10
-      - if: "!contains(steps.log.outputs.message, 'ci skip')"
-        run: npm install
+      - name: Get commit message
+        id: get_commit_message
+        run: echo ::set-output name=commit_message::$(git log --no-merges -1 --oneline)
+      - name: steps.get_commit_message.outputs.commit_message
+        run: echo "${{ steps.get_commit_message.outputs.commit_message }}"
