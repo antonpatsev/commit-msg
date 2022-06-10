@@ -23,7 +23,7 @@ jobs:
           for MESSAGE_COMMITS in "${LIST_MESSAGE_COMMITS}"
           do
             echo "${MESSAGE_COMMITS}"
-            if [[ "${MESSAGE_COMMITS}" =~ $REGEX ]]; then
+            if [[ "${MESSAGE_COMMITS}" =~ "${REGEX}" ]]; then
               echo "Valid message commit:"
               echo "${MESSAGE_COMMITS}"
             else
