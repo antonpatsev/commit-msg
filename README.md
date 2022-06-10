@@ -1,1 +1,1 @@
-feat(cicd): ggg (DEVOPS-2629)
+fix(gke): hhhh - hhh (DEVOPS-2594)
