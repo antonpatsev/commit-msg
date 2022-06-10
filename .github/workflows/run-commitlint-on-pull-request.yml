@@ -1,0 +1,16 @@
+name: Run commitlint on pull request
+
+on: pull_request
+
+jobs:
+  run-commitlint-on-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: git rev-parse HEAD github.event.pull_request.commits
+        run: git rev-parse HEAD~${{ github.event.pull_request.commits }}
+
