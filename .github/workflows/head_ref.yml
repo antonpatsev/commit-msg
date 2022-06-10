@@ -1,0 +1,21 @@
+---
+name: github.event.pull_request.head.ref
+
+on:
+  pull_request:
+    branches: [master, main]
+
+jobs:
+
+  head_ref:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: github.event.pull_request.head.ref
+        run: |
+          echo ${{ github.event.pull_request.head.ref }}
+          echo ${{ github.base_ref }}
+          git log ${{ github.event.pull_request.head.ref }}..${{ github.base_ref }}
+          git rev-list origin..HEAD
+          git rev-list HEAD ^origin
