@@ -1,0 +1,40 @@
+---
+name: github_event_pull_request_base_sha
+
+on:
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  github_event_pull_request_base_sha:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Check message commits
+        run: |
+          REGEX="^(feat|fix)\((alerts|backup|cicd|dns|git|github|gcloud|gke|gsuite|iam|inventory|spanner-autoscaler|terraform|tf)\):\s.*\s\(DEVOPS-[0-9]+\)$"
+          set -o errexit   # exit on error
+          set -o nounset   # fail if var undefined
+          set -o noclobber # don't overwrite exists files via >
+          set -o pipefail  # fails if pipes (|) fails
+          # set -o xtrace  # debug
+          echo 'git log'
+          git log ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} --pretty=format:%s  --grep='${REGEX}' --extended-regexp --invert-grep
+          LIST_MESSAGE_COMMITS=$(git log ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} --pretty=format:%s)
+          for MESSAGE_COMMITS in "${LIST_MESSAGE_COMMITS}"
+          do
+            echo ${MESSAGE_COMMITS}
+            if [[ ${MESSAGE_COMMITS} =~ ${REGEX} ]]; then
+              echo "Valid message commit:"
+              echo "${MESSAGE_COMMITS}"
+            else
+              echo "Invalid message commit:"
+              echo "${MESSAGE_COMMITS}"
+              exit 1
+            fi
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
